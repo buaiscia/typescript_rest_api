@@ -1,0 +1,375 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "RESTful API",
+        "description": "Backend RESTful API  with all CRUD operations using NodeJS, MongoDB and Redis.",
+        "contact": {
+            "email": "alex.buaiscia@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/"
+        },
+        {
+            "url": "https://restful-db-api.herokuapp.com/"
+        }
+    ],
+    "tags": [
+        {
+            "name": "movies",
+            "description": "Access all movies and their images from database"
+        }
+    ],
+    "paths": {
+        "/movies/": {
+            "get": {
+                "tags": [
+                    "movies"
+                ],
+                "summary": "Get all movies",
+                "description": "Returns all movies",
+                "operationId": "getAllMovies",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Movie"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error",
+                        "content": {}
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "movies"
+                ],
+                "summary": "Add a new movie to the database",
+                "operationId": "addMovie",
+                "requestBody": {
+                    "description": "Movie object that needs to be added to the database",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Movie"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "405": {
+                        "description": "Invalid input",
+                        "content": {}
+                    }
+                },
+                "x-codegen-request-body-name": "body"
+            }
+        },
+        "/movies/{movieId}": {
+            "get": {
+                "tags": [
+                    "movies"
+                ],
+                "summary": "Find movie by ID",
+                "description": "Returns a single movie",
+                "operationId": "getMovieById",
+                "parameters": [
+                    {
+                        "name": "movieId",
+                        "in": "path",
+                        "description": "ID of movie to return",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Movie"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID provided",
+                        "content": {}
+                    },
+                    "404": {
+                        "description": "ID does not match any movie",
+                        "content": {}
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "movies"
+                ],
+                "summary": "Deletes a movie",
+                "operationId": "deleteMovie",
+                "parameters": [
+                    {
+                        "name": "movieId",
+                        "in": "path",
+                        "description": "Movie id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Item deleted"
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "content": {}
+                    },
+                    "404": {
+                        "description": "Movie not found",
+                        "content": {}
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "movies"
+                ],
+                "summary": "update a movie.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "movieId",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "body",
+                        "name": "movie",
+                        "required": true,
+                        "description": "The fields of the movie to update.",
+                        "schema": {
+                            "$ref": "#/components/schemas/Movie"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Movie"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Movie not found",
+                        "content": {}
+                    },
+                    "405": {
+                        "description": "Error in input validation",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/movies/{movieId}/images/{type}": {
+            "get": {
+                "tags": [
+                    "movies"
+                ],
+                "summary": "get a type of image",
+                "operationId": "getImage",
+                "parameters": [
+                    {
+                        "name": "movieId",
+                        "in": "path",
+                        "description": "ID of movie to get image from",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "Type of image to get",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {}
+                    },
+                    "400": {
+                        "description": "Invalid ID provided",
+                        "content": {}
+                    },
+                    "404": {
+                        "description": "Type of image not found",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/upload/": {
+            "get": {
+                "tags": [
+                    "movies"
+                ],
+                "summary": "Get manual upload pageview",
+                "description": "Get manual upload pageview",
+                "operationId": "getUploadPage",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "500": {
+                        "description": "Error",
+                        "content": {}
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "movies"
+                ],
+                "summary": "Upload a bulk collection file",
+                "operationId": "addBulkMovies",
+                "requestBody": {
+                    "description": "Movie object that needs to be added to the database",
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "fileName": {
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "405": {
+                        "description": "Invalid input",
+                        "content": {}
+                    }
+                },
+                "x-codegen-request-body-name": "body"
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Movie": {
+                "type": "object",
+                "properties": {
+                    "movieId": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "director": {
+                        "minLength": 2,
+                        "type": "string"
+                    },
+                    "description": {
+                        "maxLength": 600,
+                        "minLength": 20,
+                        "type": "string"
+                    },
+                    "shortDescription": {
+                        "maxLength": 150,
+                        "minLength": 10,
+                        "type": "string"
+                    },
+                    "duration": {
+                        "minimum": 10,
+                        "type": "number"
+                    },
+                    "releaseDate": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "images": {
+                        "type": "object",
+                        "properties": {
+                            "cover": {
+                                "type": "string"
+                            },
+                            "poster": {
+                                "type": "string"
+                            },
+                            "background": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "genre": {
+                        "type": "string",
+                        "enum": [
+                            "Documentary",
+                            "Scifi",
+                            "Thriller",
+                            "Biography",
+                            "Romance",
+                            "Children",
+                            "Other"
+                        ]
+                    },
+                    "childrenFriendly": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "ApiResponse": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
