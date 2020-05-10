@@ -3,20 +3,12 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import logger from "morgan";
 
-// const express = require("express");
-// const mongoose = require("mongoose");
-// const bodyParser = require("body-parser");
-// const logger = require("morgan");
 
 const app = express();
 
 
 import swaggerUi from "swagger-ui-express";
 import openApiDocumentation from "./openapi.json";
-
-
-// const swaggerUi = require('swagger-ui-express');
-// const openApiDocumentation = require('./openapi.json');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openApiDocumentation));
 
@@ -86,18 +78,13 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     next();
 });
 
-// var http = require("http");
-// setInterval(function () {
-//     http.get("https://restful-db-api.herokuapp.com/");
-// }, 300000); // every 5 minutes (300000)
 
 // SET ROUTES
 
-import indexRoute from "./api/routes/index";
-import uploadRoute from "./api/routes/upload";
-
-// const indexRoute = require("./api/routes/index");
-// const uploadRoute = require("./api/routes/upload");
+//@ts-ignore
+import indexRoute from "./api/routes/index"; //not existing yet, to create
+//@ts-ignore
+import uploadRoute from "./api/routes/upload";  //not existing yet, to create
 
 // USE ROUTES
 
