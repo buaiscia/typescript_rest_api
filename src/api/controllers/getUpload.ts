@@ -1,38 +1,49 @@
 import  { Request, Response, NextFunction } from "express";
+import formidable  from "formidable";
+import fs from "fs";
+import mongoose from "mongoose";
 
-interface error {
-  message?: string;
+
+interface files {
+  name?: string;
+  path?: string;
+
 }
 
 exports.post = function (req: Request, res: Response) {
-  const formidable = require("formidable");
-  const fs = require("fs");
-  const mongoose = require("mongoose");
-  const Movie = require("../models/movie");
+
+
+  // const formidable = require("formidable");
+  // const fs = require("fs");
+  // const mongoose = require("mongoose");
+  // const Movie = require("../models/movie");
+
+  
 
   // FORMIDABLE
 
+  //@ts-ignore
   const form = new formidable.IncomingForm({ multiples: true });
   form.uploadDir = "collection/";
 
-  form.parse((req: Request, err: error, next: NextFunction) => {
+  form.parse((req: Request, err: Error, next: NextFunction) => {
     if (err) {
       next(err);
       return;
     }
   });
 
-  form.on("fileBegin", function (file: {name: string, path: string}) {
+  form.on("fileBegin", function (file: files) {
     file.path = "collection/" + file.name;
   });
 
-  form.on("file", function (file: {name: string, path: string}) {
+  form.on("file", function (file: files) {
     file.path = "collection/" + file.name;
     let pathFile = file.path;
     let fileToRead = fs.readFileSync(pathFile, "utf-8");
     let parsed = JSON.parse(fileToRead);
 
-    Movie.insertMany(parsed, function (err: error) {
+    Movie.insertMany(parsed, function (err: Error) {
       if (err) {
         res.status(400).json({
           message: "Bad request",

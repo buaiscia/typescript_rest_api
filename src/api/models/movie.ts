@@ -1,4 +1,22 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
+// const mongoose = require("mongoose");
+
+interface IMovie extends mongoose.Document {
+    title: string,
+    director: string,
+    description: string,
+    shortDescription?: string,
+    duration: number,
+    releaseDate?: string,
+    images: {
+        cover?: string,
+        poster: string,
+        background?: string
+    },
+    genre: string,
+    childrenFriendly?: boolean
+}
 
 const movieSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -58,6 +76,6 @@ const movieSchema = new mongoose.Schema({
     },
 });
 
-var Movie = mongoose.model("Movie", movieSchema);
+const Movie = mongoose.model<IMovie>("Movie", movieSchema);
 
-module.exports = Movie;
+export default Movie;
