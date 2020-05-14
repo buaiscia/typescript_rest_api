@@ -1,7 +1,9 @@
 import  { Request, Response, NextFunction } from "express";
 import formidable  from "formidable";
 import fs from "fs";
-import mongoose from "mongoose";
+import * as mongoose from "mongoose";
+import { Movie } from "../models/movie";
+
 
 
 interface files {
@@ -17,8 +19,6 @@ exports.post = function (req: Request, res: Response) {
   // const fs = require("fs");
   // const mongoose = require("mongoose");
   // const Movie = require("../models/movie");
-
-  
 
   // FORMIDABLE
 

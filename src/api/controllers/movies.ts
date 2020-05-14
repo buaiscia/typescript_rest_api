@@ -1,12 +1,23 @@
-const mongoose = require("mongoose");
-const Movie = require("../models/movie");
+// const mongoose = require("mongoose");
+// const Movie = require("../models/movie");
+import  { Request, Response } from "express";
+
+
+import * as mongoose from "mongoose";
+import { Movie } from "../models/movie";
+
+interface PaginatedResponse extends Response{
+  paginatedResults?: {}
+}
 
 //REDIS SETUP
 
-const redis = require("redis");
+// const redis = require("redis");
+
+import * as redis from "redis";
 
 // const host = process.env.redis_server_addr || "localhost"; // in use with docker
-let redisClient = '';
+let redisClient: any;
 
 if(process.env.REDIS_URL) {
   redisClient = redis.createClient(process.env.REDIS_URL)
@@ -26,7 +37,7 @@ redisClient.on("ready", function () {
   console.log("Redis is ready");
 });
 
-redisClient.on("error", function (err) {
+redisClient.on("error", function (err: Error) {
   console.log("Error in Redis:" + err);
 });
 
@@ -35,8 +46,8 @@ redisClient.expire("redisClient", 3600);
 
 // METHODS
 
-exports.get_all = (req, res) => {
-  redisClient.get("/movies", function (err) {
+exports.get_all = (req: Request, res: PaginatedResponse) => {
+  redisClient.get("/movies", function (err: Error) {
     if (err) {
       res.status(500).json(err.message);
     }
@@ -44,7 +55,7 @@ exports.get_all = (req, res) => {
   });
 };
 
-exports.get_one = (req, res) => {
+exports.get_one = (req: Request, res: Response) => {
   const id = req.params.id;
   Movie.findById(id)
     .select("-__v")
@@ -73,13 +84,13 @@ exports.get_one = (req, res) => {
     });
 };
 
-exports.get_images = (req, res) => {
+exports.get_images = (req: Request, res: Response) => {
   const id = req.params.id;
   const type = req.params.type;
   Movie.findById(id)
     .then(result => {
       if (type === "poster" || type === "cover" || type === "background") {
-        const imgType = result.images[type];
+        const imgType = result!.images[type];
         res.status(200).json({ posterImage: imgType });
       } else {
         res.status(404).json({
@@ -97,7 +108,7 @@ exports.get_images = (req, res) => {
     });
 };
 
-exports.post_one = (req, res) => {
+exports.post_one = (req: Request, res: Response) => {
   const movie = new Movie({
     _id: new mongoose.Types.ObjectId(),
     title: req.body.title,
@@ -130,7 +141,7 @@ exports.post_one = (req, res) => {
     });
 };
 
-exports.update_one = (req, res) => {
+exports.update_one = (req: Request, res: Response) => {
   const id = req.params.id;
   const validator = { runValidators: true };
 
@@ -143,7 +154,7 @@ exports.update_one = (req, res) => {
             item: result,
             request: {
               type: "GET",
-              url: req.get("host") + "/movies/" + movieObj._id
+              url: req.get("host") + "/movies/" + movieObj!._id
             }
           });
         })
@@ -164,7 +175,7 @@ exports.update_one = (req, res) => {
     });
 };
 
-exports.delete_one = (req, res) => {
+exports.delete_one = (req: Request, res: Response) => {
   const id = req.params.id;
   Movie.findById(id)
     .then(movieObj => {

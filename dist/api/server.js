@@ -7,15 +7,9 @@ const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const morgan_1 = __importDefault(require("morgan"));
-// const express = require("express");
-// const mongoose = require("mongoose");
-// const bodyParser = require("body-parser");
-// const logger = require("morgan");
 const app = express_1.default();
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const openapi_json_1 = __importDefault(require("./openapi.json"));
-// const swaggerUi = require('swagger-ui-express');
-// const openApiDocumentation = require('./openapi.json');
 app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(openapi_json_1.default));
 // CONFIGURATION
 app.use(express_1.default.static(__dirname + "/view"));
@@ -66,15 +60,11 @@ app.use((req, res, next) => {
     }
     next();
 });
-// var http = require("http");
-// setInterval(function () {
-//     http.get("https://restful-db-api.herokuapp.com/");
-// }, 300000); // every 5 minutes (300000)
 // SET ROUTES
-const index_1 = __importDefault(require("./api/routes/index"));
-const upload_1 = __importDefault(require("./api/routes/upload"));
-// const indexRoute = require("./api/routes/index");
-// const uploadRoute = require("./api/routes/upload");
+//@ts-ignore
+const index_1 = __importDefault(require("./api/routes/index")); //not existing yet, to create
+//@ts-ignore
+const upload_1 = __importDefault(require("./api/routes/upload")); //not existing yet, to create
 // USE ROUTES
 app.use("/upload", upload_1.default);
 app.use("/", index_1.default);

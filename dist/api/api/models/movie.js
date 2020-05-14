@@ -1,23 +1,13 @@
-import * as mongoose from "mongoose";
-
-// const mongoose = require("mongoose");
-
-interface IMovie extends mongoose.Document {
-    title: string,
-    director: string,
-    description: string,
-    shortDescription?: string,
-    duration: number,
-    releaseDate?: string,
-    images: {
-        cover?: string,
-        poster: string,
-        background?: string
-    },
-    genre: string,
-    childrenFriendly?: boolean
-}
-
+"use strict";
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose = __importStar(require("mongoose"));
 const movieSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     title: {
@@ -75,7 +65,5 @@ const movieSchema = new mongoose.Schema({
         required: false
     },
 });
-
-const Movie = mongoose.model<IMovie>("Movie", movieSchema);
-
-export  { Movie } ;
+const Movie = mongoose.model("Movie", movieSchema);
+exports.Movie = Movie;
