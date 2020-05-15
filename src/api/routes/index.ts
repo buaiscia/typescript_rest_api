@@ -1,7 +1,14 @@
-const express = require("express");
-const Movie = require("../models/movie");
-const MovieController = require("../controllers/movies");
-const pagination = require("../middleware/pagination");
+import express, { Request, Response } from "express";
+import { Movie } from "../models/movie";
+import * as MovieController from "../controllers/movies";
+import * as pagination from "../middleware/pagination";
+
+
+
+// const express = require("express");
+// const Movie = require("../models/movie");
+// const MovieController = require("../controllers/movies");
+// const pagination = require("../middleware/pagination");
 const { check } = require("express-validator");
 
 const router = express.Router();

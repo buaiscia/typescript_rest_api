@@ -1,12 +1,32 @@
+import { Request, Response, NextFunction, RequestHandler} from "express-serve-static-core";
+
+interface ReqQuery extends Response {
+  query: {
+    page: string,
+    limit: string,
+    search: string,
+    genre: string
+  }
+}
+
+interface ResPagination extends Response {
+  paginatedResults: {}
+}
+
 const escapeStringRegexp = require("escape-string-regexp");
 
-exports.paginatedResults = model => {
-  return async (req, res, next) => {
+const paginatedResults = (model: any) => {
+  return async (req: ReqQuery, res: ResPagination, next: NextFunction) => {
     const page = parseInt(req.query.page);
     const limit = parseInt(req.query.limit);
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
-    const results = {};
+    const results: {
+      next?: {},
+      previous?: {},
+      results?: {},
+      countFound?: number
+    } = {};
     let totalCount = 0;
 
     if (endIndex < (await model.countDocuments().exec())) {
@@ -23,7 +43,7 @@ exports.paginatedResults = model => {
     }
 
     try {
-      results.results = {};
+      // results.results = {};
 
       if (req.query.search || req.query.genre) {
         if (req.query.search) {
@@ -53,10 +73,11 @@ exports.paginatedResults = model => {
       }
 
       try {
-        if (Object.keys(results.results).length === 0) {
+        if (Object.keys((results.results)!).length === 0) {
           res.status(404).json({ status: 404, message: "Not found" });
         } else {
-          totalCount = await results.results.length;
+          // totalCount = await results.results.length;
+          totalCount = Object.keys((results.results)!).length;
           results.countFound = totalCount;
           res.paginatedResults = results;
           next();
@@ -69,3 +90,5 @@ exports.paginatedResults = model => {
     }
   };
 };
+
+export default paginatedResults;

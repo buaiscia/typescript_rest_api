@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.6",
+    "@types/express-serve-static-core": "^4.17.7",
     "@types/formidable": "^1.0.31",
     "@types/mongoose": "^5.7.16",
     "@types/morgan": "^1.9.0",
