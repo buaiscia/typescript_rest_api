@@ -1,18 +1,16 @@
 import express, { Request, Response } from "express";
 import { Movie } from "../models/movie";
-import Controllers from "../controllers/movies";
-import Pagination from "../middleware/pagination";
-
-
-const MovieController = new Controllers;
-const Paginating = new Pagination;
+import { get_all, get_one, get_images, post_one, update_one, delete_one} from "../controllers/movies";
+import { paginatedResults } from "../middleware/pagination";
 
 
 // const express = require("express");
 // const Movie = require("../models/movie");
 // const MovieController = require("../controllers/movies");
 // const pagination = require("../middleware/pagination");
-const { check } = require("express-validator");
+// const { check } = require("express-validator");
+
+import { check } from "express-validator";
 
 const router = express.Router();
 
@@ -30,15 +28,11 @@ router.get("/", (req, res) => {
 //   MovieController.get_all
 // );
 
-router.get("/movies", (req, res, next) => {
-  Paginating.paginatedResults(Movie);
-  MovieController.get_all;
-  next();
-})
+router.get("/movies", (req, res) => paginatedResults(Movie), get_all)
 
-router.get("/movies/:id", MovieController.get_one);
+router.get("/movies/:id", get_one);
 
-router.get("/movies/:id/images/:type", MovieController.get_images);
+router.get("/movies/:id/images/:type", get_images);
 
 router.post(
   "/movies",
@@ -75,11 +69,10 @@ router.post(
       .escape(),
     check("childrenFriendly").isBoolean()
   ],
-  MovieController.post_one
-);
+  post_one);
 
-router.patch("/movies/:id", MovieController.update_one);
+router.patch("/movies/:id", update_one);
 
-router.delete("/movies/:id", MovieController.delete_one);
+router.delete("/movies/:id", delete_one);
 
-module.exports = router;
+export default router;

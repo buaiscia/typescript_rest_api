@@ -1,5 +1,9 @@
 import { Request, Response, NextFunction, RequestHandler} from "express-serve-static-core";
 
+import escapeStringRegexp from "escape-string-regexp";
+// const escapeStringRegexp = require("escape-string-regexp");
+
+
 interface ReqQuery extends Response {
   query: {
     page: string,
@@ -13,10 +17,8 @@ interface ResPagination extends Response {
   paginatedResults: {}
 }
 
-const escapeStringRegexp = require("escape-string-regexp");
 
-class Pagination {
-  paginatedResults = (model: any) => {
+  export const paginatedResults = (model: any) => {
     return async (req: ReqQuery, res: ResPagination, next: NextFunction) => {
       const page = parseInt(req.query.page);
       const limit = parseInt(req.query.limit);
@@ -92,7 +94,3 @@ class Pagination {
     };
   };
   
-}
-
-
-export default Pagination;

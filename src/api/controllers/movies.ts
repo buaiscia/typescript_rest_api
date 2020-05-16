@@ -46,9 +46,8 @@ redisClient.expire("redisClient", 3600);
 
 // METHODS
 
-class Controllers {
 
-  get_all = (req: Request, res: PaginatedResponse) => {
+  export const get_all = (req: Request, res: PaginatedResponse) => {
     redisClient.get("/movies", function (err: Error) {
       if (err) {
         res.status(500).json(err.message);
@@ -57,7 +56,7 @@ class Controllers {
     });
   };
   
-  get_one = (req: Request, res: Response) => {
+  export const get_one = (req: Request, res: Response) => {
     const id = req.params.id;
     Movie.findById(id)
       .select("-__v")
@@ -86,7 +85,7 @@ class Controllers {
       });
   };
   
-  get_images = (req: Request, res: Response) => {
+  export const get_images = (req: Request, res: Response) => {
     const id = req.params.id;
     const type = req.params.type;
     Movie.findById(id)
@@ -110,7 +109,7 @@ class Controllers {
       });
   };
   
-  post_one = (req: Request, res: Response) => {
+  export const post_one = (req: Request, res: Response) => {
     const movie = new Movie({
       _id: new mongoose.Types.ObjectId(),
       title: req.body.title,
@@ -143,7 +142,7 @@ class Controllers {
       });
   };
   
-  update_one = (req: Request, res: Response) => {
+  export const update_one = (req: Request, res: Response) => {
     const id = req.params.id;
     const validator = { runValidators: true };
   
@@ -177,7 +176,7 @@ class Controllers {
       });
   };
   
-  delete_one = (req: Request, res: Response) => {
+  export const delete_one = (req: Request, res: Response) => {
     const id = req.params.id;
     Movie.findById(id)
       .then(movieObj => {
@@ -211,7 +210,6 @@ class Controllers {
         });
       });
   };
-}
 
-export default Controllers;
+
 
