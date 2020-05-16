@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const formidable_1 = __importDefault(require("formidable"));
 const fs_1 = __importDefault(require("fs"));
 const movie_1 = require("../models/movie");
-exports.post = function (req, res) {
+exports.post = (req, res) => {
     // const formidable = require("formidable");
     // const fs = require("fs");
     // const mongoose = require("mongoose");

@@ -1,7 +1,11 @@
-const chai = require("chai");
+import {expect, should} from "chai";
+import "chai-http";
+import "mocha";
+
+// const chai = require("chai");
 const chaiHttp = require("chai-http");
 const server = require("../../server");
-const should = chai.should();
+// const should = chai.should();
 chai.use(chaiHttp);
 
 describe("/GET ALL MOVIES", () => {
