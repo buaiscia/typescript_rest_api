@@ -32,7 +32,7 @@ redisClient.on("error", function (err) {
 });
 redisClient.expire("redisClient", 3600);
 // METHODS
-exports.get_all = (req, res) => {
+exports.get_all = (req, res, next) => {
     redisClient.get("/movies", function (err) {
         if (err) {
             res.status(500).json(err.message);

@@ -30,7 +30,8 @@ router.get("/", (req, res) => {
 
 // router.get("/movies", (req, res) => {paginatedResults(Movie), get_all})
 
-router.get("/movies", get_all)
+//@ts-ignore
+router.get("/movies", paginatedResults(Movie), get_all)
 
 router.get("/movies/:id", get_one);
 
