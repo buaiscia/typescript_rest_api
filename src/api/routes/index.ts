@@ -28,7 +28,9 @@ router.get("/", (req, res) => {
 //   MovieController.get_all
 // );
 
-router.get("/movies", (req, res) => paginatedResults(Movie), get_all)
+// router.get("/movies", (req, res) => {paginatedResults(Movie), get_all})
+
+router.get("/movies", get_all)
 
 router.get("/movies/:id", get_one);
 

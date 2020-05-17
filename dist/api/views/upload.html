@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Collection uploader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/style/upload.css">
+</head>
+
+<body>
+    <div class="title">
+        <h2>Choose collection to upload to the database:</h2>
+
+    </div>
+    <div class="main">
+
+        <br/>
+        <form action="/upload" enctype="multipart/form-data" method="post">
+            <br/>
+            <div class="file-upload-wrapper" data-text="Click here to select your file!">
+
+                <label for="file-upload" class="custom-file-upload">
+                    <input  id="file-upload" class="input" type="file" name="multipleFiles" multiple="multiple" />
+                </label>
+                <br/>
+                <input class="button" type="submit" value="Upload" />
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>

@@ -15,6 +15,7 @@ interface PaginatedResponse extends Response{
 // const redis = require("redis");
 
 import * as redis from "redis";
+import { NextFunction } from "connect";
 
 // const host = process.env.redis_server_addr || "localhost"; // in use with docker
 let redisClient: any;
@@ -47,7 +48,7 @@ redisClient.expire("redisClient", 3600);
 // METHODS
 
 
-  export const get_all = (req: Request, res: PaginatedResponse) => {
+  export const get_all = (req: Request, res: PaginatedResponse, next: NextFunction) => {
     redisClient.get("/movies", function (err: Error) {
       if (err) {
         res.status(500).json(err.message);

@@ -82,9 +82,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // SET ROUTES
 
 //@ts-ignore
-import indexRoute from "./api/routes/index"; //not existing yet, to create
+import indexRoute from "./api/routes/index"; 
 //@ts-ignore
-import uploadRoute from "./api/routes/upload";  //not existing yet, to create
+import uploadRoute from "./api/routes/upload";  
 
 // USE ROUTES
 
@@ -99,9 +99,8 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     next(err);
 });
 
-app.use((err: Error, req: Request, res: Response) => {
-    res.status(err.status || 500);
-    res.json({
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    res.status(err.status || 500).json({
         error: { message: err.message }
     });
 });

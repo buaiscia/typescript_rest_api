@@ -34,8 +34,8 @@ if (process.env.DATABASEURL) {
     });
 }
 else {
-    url = "mongodb://mongo:27017"; // TO USE WITH DOCKER
-    // url = "mongodb://localhost:27017"; // TO USE LOCALLY
+    //url = "mongodb://mongo:27017";  // TO USE WITH DOCKER
+    url = "mongodb://localhost:27017"; // TO USE LOCALLY
     const dbName = "moviesDB";
     mongoose_1.default
         .connect(`${url}/${dbName}`, {
@@ -62,9 +62,9 @@ app.use((req, res, next) => {
 });
 // SET ROUTES
 //@ts-ignore
-const index_1 = __importDefault(require("./api/routes/index")); //not existing yet, to create
+const index_1 = __importDefault(require("./api/routes/index"));
 //@ts-ignore
-const upload_1 = __importDefault(require("./api/routes/upload")); //not existing yet, to create
+const upload_1 = __importDefault(require("./api/routes/upload"));
 // USE ROUTES
 app.use("/upload", upload_1.default);
 app.use("/", index_1.default);
@@ -74,9 +74,8 @@ app.use((err, req, res, next) => {
     err.status = 404;
     next(err);
 });
-app.use((err, req, res) => {
-    res.status(err.status || 500);
-    res.json({
+app.use((err, req, res, next) => {
+    res.status(err.status || 500).json({
         error: { message: err.message }
     });
 });
