@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const movie_1 = require("../models/movie");
 const movies_1 = require("../controllers/movies");
 const pagination_1 = require("../middleware/pagination");
+const middleware = pagination_1.paginatedResults(movie_1.Movie);
 // const express = require("express");
 // const Movie = require("../models/movie");
 // const MovieController = require("../controllers/movies");
@@ -24,9 +25,8 @@ router.get("/", (req, res) => {
 //   Paginating.paginatedResults(Movie),
 //   MovieController.get_all
 // );
-// router.get("/movies", (req, res) => {paginatedResults(Movie), get_all})
-//@ts-ignore
-router.get("/movies", pagination_1.paginatedResults(movie_1.Movie), movies_1.get_all);
+router.get("/movies", [pagination_1.paginatedResults(movie_1.Movie)], movies_1.get_all);
+// router.get("/movies", paginatedResults(Movie), get_all)
 router.get("/movies/:id", movies_1.get_one);
 router.get("/movies/:id/images/:type", movies_1.get_images);
 router.post("/movies", [

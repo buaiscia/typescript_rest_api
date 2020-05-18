@@ -18,7 +18,7 @@ interface ResPagination extends Response {
 }
 
 
-  export const paginatedResults = (model: any) => {
+  export const paginatedResults = (model: any): any => {
     return async (req: ReqQuery, res: ResPagination, next: NextFunction) => {
       const page = parseInt(req.query.page);
       const limit = parseInt(req.query.limit);

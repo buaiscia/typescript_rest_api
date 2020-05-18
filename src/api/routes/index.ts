@@ -1,8 +1,7 @@
 import express, { Request, Response } from "express";
 import { Movie } from "../models/movie";
-import { get_all, get_one, get_images, post_one, update_one, delete_one} from "../controllers/movies";
+import { get_all, get_one, get_images, post_one, update_one, delete_one } from "../controllers/movies";
 import { paginatedResults } from "../middleware/pagination";
-
 
 // const express = require("express");
 // const Movie = require("../models/movie");
@@ -28,10 +27,11 @@ router.get("/", (req, res) => {
 //   MovieController.get_all
 // );
 
-// router.get("/movies", (req, res) => {paginatedResults(Movie), get_all})
+router.get("/movies", [paginatedResults(Movie)] ,get_all)
 
-//@ts-ignore
-router.get("/movies", paginatedResults(Movie), get_all)
+
+
+// router.get("/movies", paginatedResults(Movie), get_all)
 
 router.get("/movies/:id", get_one);
 
