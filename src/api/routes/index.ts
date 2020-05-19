@@ -21,17 +21,8 @@ router.get("/", (req, res) => {
   res.redirect("/movies/");
 });
 
-// router.get(
-//   "/movies/",
-//   Paginating.paginatedResults(Movie),
-//   MovieController.get_all
-// );
 
 router.get("/movies", [paginatedResults(Movie)] ,get_all)
-
-
-
-// router.get("/movies", paginatedResults(Movie), get_all)
 
 router.get("/movies/:id", get_one);
 

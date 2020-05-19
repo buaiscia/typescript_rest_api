@@ -15,5 +15,6 @@ router.get("/", (req, res) => {
         root: path_1.default.join(__dirname, "../views/")
     });
 });
-router.post("/", getUpload_1.post);
+router.post("/", getUpload_1.postFile);
 exports.default = router;
+//# sourceMappingURL=upload.js.map

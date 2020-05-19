@@ -1,0 +1,25 @@
+[
+	{
+		"title": "Anna Karenina",
+		"director": "Joe Wright",
+		"description": "In late-19th-century Russian high society, St. Petersburg aristocrat Anna Karenina enters into a life-changing affair with the dashing Count Alexei Vronsky. ",
+		"duration": 120,
+		"images": {
+			"poster": "anna_karenina_poster.png"
+		},
+		"genre": "Romance"
+	},
+	{
+		"title": "Star Wars The force awakens",
+		"director": "J.J. Abrams",
+		"description": "Thirty years after the Galactic Civil War, the First Order has risen from the fallen Galactic Empire and seeks to eliminate the New Republic. The Resistance, backed by the Republic and led by General Leia Organa, opposes the First Order. Leia searches for her brother, Luke Skywalker, who has gone missing. ",
+		"shortDescription": "Three decades after the Empire's defeat, a new threat arises in the militant First Order. Defected stormtrooper Finn and the scavenger Rey are caught up in the Resistance's search for the missing Luke Skywalker. ",
+		"duration": 150,
+		"images": {
+			"cover": "the_force_awakens_cover.png",
+			"poster": "the_force_awakens_poster.png"
+		},
+		"genre": "Scifi"
+	}
+]
+

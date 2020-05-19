@@ -67,3 +67,4 @@ const movieSchema = new mongoose.Schema({
 });
 const Movie = mongoose.model("Movie", movieSchema);
 exports.Movie = Movie;
+//# sourceMappingURL=movie.js.map

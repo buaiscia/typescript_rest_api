@@ -6,7 +6,7 @@ import path from "path";
 const router = express.Router();
 // const path = require("path");
 
-import  { post }  from "../controllers/getUpload";
+import  { postFile }  from "../controllers/getUpload";
 
 
 // const getUpload = require("../controllers/getUpload");
@@ -17,6 +17,6 @@ router.get("/", (req, res) => {
     });
 });
 
-router.post("/", post);
+router.post("/", postFile);
 
 export default router;

@@ -7,7 +7,6 @@ const express_1 = __importDefault(require("express"));
 const movie_1 = require("../models/movie");
 const movies_1 = require("../controllers/movies");
 const pagination_1 = require("../middleware/pagination");
-const middleware = pagination_1.paginatedResults(movie_1.Movie);
 // const express = require("express");
 // const Movie = require("../models/movie");
 // const MovieController = require("../controllers/movies");
@@ -20,13 +19,7 @@ app.use(express_1.default.json());
 router.get("/", (req, res) => {
     res.redirect("/movies/");
 });
-// router.get(
-//   "/movies/",
-//   Paginating.paginatedResults(Movie),
-//   MovieController.get_all
-// );
 router.get("/movies", [pagination_1.paginatedResults(movie_1.Movie)], movies_1.get_all);
-// router.get("/movies", paginatedResults(Movie), get_all)
 router.get("/movies/:id", movies_1.get_one);
 router.get("/movies/:id/images/:type", movies_1.get_images);
 router.post("/movies", [
@@ -65,3 +58,4 @@ router.post("/movies", [
 router.patch("/movies/:id", movies_1.update_one);
 router.delete("/movies/:id", movies_1.delete_one);
 exports.default = router;
+//# sourceMappingURL=index.js.map

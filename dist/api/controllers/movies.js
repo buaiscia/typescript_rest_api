@@ -191,3 +191,4 @@ exports.delete_one = (req, res) => {
         });
     });
 };
+//# sourceMappingURL=movies.js.map

@@ -84,3 +84,4 @@ exports.paginatedResults = (model) => {
         }
     });
 };
+//# sourceMappingURL=pagination.js.map
