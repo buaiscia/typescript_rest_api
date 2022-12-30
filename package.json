@@ -19,7 +19,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.4.0",
     "formidable": "^1.2.2",
-    "mocha": "^7.1.0",
+    "mocha": "^10.2.0",
     "mongodb": "^3.5.3",
     "mongoose": "^5.9.13",
     "morgan": "^1.9.1",
